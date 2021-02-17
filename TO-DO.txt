@@ -1,0 +1,19 @@
+Tasks to do:
+
+1) Create UI screens:
+	-Home
+	-Text Input 
+	-Voice Input
+	-Dictionary
+
+2) Create Django Backend:
+	-Views for UI templates
+	-URLS management
+
+3) Modify and bolster Algorithms:
+	-Spell Check
+	-Spell suggestion with predicted probability
+	-Grammar Check
+	-Voice Input( prefer JS Browser mode over Python)
+	-Translate 
+	-Synonym, antonym, meaning
