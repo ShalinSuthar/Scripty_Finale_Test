@@ -1,0 +1,5 @@
+googletrans==3.1.0a0
+nltk
+#import nltk
+#nltk.download('all')
+pyspellchecker
