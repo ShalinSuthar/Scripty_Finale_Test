@@ -3,3 +3,4 @@ nltk
 #import nltk
 #nltk.download('all')
 pyspellchecker
+PyDictionary
