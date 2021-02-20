@@ -50,14 +50,32 @@ class ColoredText:
 
         s_open, s_close = '', ''
         if c is not None:
+            
+            if(c==31):
+                s_open='<span style="color:red">'
+                gap = 24
+            elif(c==32):
+                s_open='<span style="color:green">'
+                gap = 26
+            """
+            print("c: ",c)
             s_open = '\033[%dm' % c
+            
             gap = len(s_open)
+            print('len sopen: ',len(s_open))
+            """
         if bg is not None:
             s_open += '\033[%dm' % bg
-            gap = len(s_open)
+            gap = 26
+            
         if not c is None or bg is None:
-            s_close = '\033[0m'
+            s_close='</span>'
+            #s_close = '\033[0m'
+            gap+=7
+            """
+            print('len of sclose: ',len(s_close))
             gap += len(s_close)
+            """
         return ('%s%s%s' % (s_open, text, s_close), gap)
 
 
@@ -103,13 +121,14 @@ def get_ginger_result(text):
     except ValueError:
         print("Value Error: Invalid server response.")
         quit()
-
+    
     return (result)
 
 
-def main():
+def main(text):
     """main function"""
-    original_text = "we weesh u a hippy news Yeer"
+    original_text=text
+    #original_text = "we weesh u a hippy news Yeer"
     if len(original_text) > 600:
         print("You can't check more than 600 characters at a time.")
         quit()
@@ -140,7 +159,8 @@ def main():
 
             color_gap += gap
             fixed_gap += to_index - from_index - len(suggest)
-    return (original_text,fixed_text)
+    #return (original_text,fixed_text)
+    return fixed_text
     """
     print("from: " + original_text)
     print("to:   " + fixed_text)
@@ -148,6 +168,6 @@ def main():
 
 
 if __name__ == '__main__':
-    t=main()
-    print("from: "+t[0])
-    print("to: "+t[1])
+    t=main("whit is newe blake.")
+    #print("from: "+t[0])
+    print("Corrected Text: "+t)
