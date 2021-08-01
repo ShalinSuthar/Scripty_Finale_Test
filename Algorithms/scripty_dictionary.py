@@ -20,7 +20,6 @@ def getantonym(word):
         return ant[:5]
     else:
         return ("No antonym found")
-def dict_translate(word):
-    return (dictionary.translate(word,'hi'))
 
-#print(getmeaning("large"))
+def gettranslate(word,lang='hi'):
+    return (dictionary.translate(word,lang))
