@@ -9,3 +9,7 @@ To Run the *Django- App*
 1. Locate to manage.py file inside Scripty_v1 Folder.
 
 2. run - python manage.py runserver
+
+*NOTE* - USE NEW GOOGLE TRANSLATION PACKAGE..
+
+run pip install git+https://github.com/lushan88a/google_trans_new
