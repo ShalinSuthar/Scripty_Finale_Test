@@ -1,0 +1,15 @@
+.backgroundColor {
+    background-color:ivory;
+    font-size: larger;
+    color: indigo;
+}
+body {
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+#textInput {
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}
