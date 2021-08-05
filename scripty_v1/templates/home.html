@@ -103,10 +103,10 @@
     <div class="row">
         <!-- text input area start -->
         <div class="col-lg-6 offset-lg-1 col-sm-12">
-            <form method="POST">
+            <form id="checkerForm" method="POST">
             {% csrf_token %}
                 <textarea name="textInput" id="textInput" cols="60" rows="14" oninput="countWords()" class="ckeditor ta" onchange="countWords()"></textarea>
-                <input type="button" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit"/>
+                <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit"/>
                 <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
                     id="wordCountResult">0</label>
             </form>
@@ -115,19 +115,20 @@
         <div class="col-lg-4 mx-lg-5 col-sm-12">
             <label for="helperHeader">Helper</label>
             <div for="translation">
-                <form>
+                <form method="POST" id="translateForm">
+                    {% csrf_token %}
                     <label for="">Translation</label><br>
                     <label for="fromLanguageLabel">From Language:</label>
                     <select name="fromLanguage" id="fromLanguage">
                         <option value="en">English</option>
-                        <option value="hn">Hindi</option>
-                        <option value="gj">Gujarati</option>
+                        <option value="hi">Hindi</option>
+                        <option value="guj">Gujarati</option>
                     </select><br>
                     <label for="toLanguageLabel">To Language:</label>
                     <select name="toLanguage" id="toLanguage">
                         <option value="en">English</option>
-                        <option value="hn">Hindi</option>
-                        <option value="gj">Gujarati</option>
+                        <option value="hi">Hindi</option>
+                        <option value="guj">Gujarati</option>
                     </select><br>
                     <input type="text" name="fromLanguageInput" id="fromLanguageInput"
                         placeholder="From Language Input">

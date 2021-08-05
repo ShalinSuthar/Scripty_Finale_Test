@@ -10,10 +10,6 @@
     font-family: 'Segoe ui';
 }
 
-body {
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-}
 #textInput {
     padding-top: 10px;
     padding-right: 5px;

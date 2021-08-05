@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     #path('add', views.add, name='add'),
     path('grammarCheck', views.grammarCheck, name='grammarCheck'),
-    path('logon',views.login,name='login'),
+    path('login',views.login,name='login'),
+    path('translateText',views.translateText,name='translateText'),
 ]
