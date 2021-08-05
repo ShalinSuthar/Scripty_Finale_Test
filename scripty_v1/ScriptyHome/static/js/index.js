@@ -33,6 +33,7 @@ $().ready( function () {
             },
             success: function (response) {
                // console.log(response);
+               $('#loader').addClass('hidden')
                 editor.setData(response.result);
             },
             error: function (response) {
