@@ -1,9 +1,9 @@
 from googletrans import Translator, constants, LANGUAGES
 
-translator = Translator()
 
-def gtranslate(text,dest="hi"):
-    return translator.translate(text,dest = dest).text
+def gtranslate(text,dest="hi",src="en"):
+    translator = Translator()
+    return translator.translate(text,dest = dest,src=src).text
 
 
 # Alternative approach

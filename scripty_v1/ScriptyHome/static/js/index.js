@@ -14,7 +14,7 @@ $().ready( function () {
 
     $("#translateForm").submit(function(e) {
         e.preventDefault();
-        //let fromLanguage = $("#fromLanguage").val();
+        let fromLanguage = $("#fromLanguage").val();
         let toLanguage = $("#toLanguage").val();
         //console.log(toLanguage);
 
@@ -25,6 +25,7 @@ $().ready( function () {
             url: "/translateText",
             data: {
                 text: text,
+                src:fromLanguage,
                 dest: toLanguage,
                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },

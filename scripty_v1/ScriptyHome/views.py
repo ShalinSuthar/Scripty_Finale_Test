@@ -1,10 +1,11 @@
 #from googletrans import Translator
-from google_trans_new import google_translator  
+#from google_trans_new import google_translator  
+
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.cache import never_cache
 from ScriptyHome import grammer_checker
-#from ScriptyHome import scripty_gtranslate
+from ScriptyHome import scripty_gtranslate
 
 # Create your views here.
 
@@ -24,13 +25,12 @@ def login(request):
 
 def translateText(request):
     text = request.POST['text']
+    src = request.POST['src']
     dest = request.POST['dest']
-    print(dest)
+    #print(dest)
 
-    translator = google_translator()  
-    #translator = Translator()
-    translate_text = translator.translate(text,lang_tgt=dest)
-    print(translate_text)
+    translate_text = scripty_gtranslate.gtranslate(text,src=src,dest=dest)
+    #print(translate_text)
     return JsonResponse({'result': translate_text})
     
 
