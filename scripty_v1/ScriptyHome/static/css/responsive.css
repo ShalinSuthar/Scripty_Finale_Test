@@ -1,0 +1,12 @@
+.ta{
+	width:90vw;
+	height:90vh!important;
+}
+.controls{
+	width:10vw;
+	height:80vh;
+}
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+	height:50vh;
+	width:49.1vw;
+}
