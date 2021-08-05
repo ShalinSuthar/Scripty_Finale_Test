@@ -1,8 +1,11 @@
+#from googletrans import Translator
+#from google_trans_new import google_translator  
 
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.cache import never_cache
 from ScriptyHome import grammer_checker
+from ScriptyHome import scripty_gtranslate
 
 # Create your views here.
 
@@ -10,7 +13,7 @@ def home(request):
     return render(request, 'home.html')
 
 def grammarCheck(request):
-    text = request.GET['text']
+    text = request.POST['text']
 
     parser = grammer_checker.GingerIt()
     print(parser.parse(text))
@@ -20,9 +23,15 @@ def grammarCheck(request):
 def login(request):
     return HttpResponse('Login')
 
-    
-    num1 = request.POST['number1']
-    num2 = request.POST['number2']
-    result = int(num1) + int(num2)
+def translateText(request):
+    text = request.POST['text']
+    src = request.POST['src']
+    dest = request.POST['dest']
+    #print(dest)
 
-    return render(request, 'home.html',{'result': result})
+    translate_text = scripty_gtranslate.gtranslate(text,src=src,dest=dest)
+    #print(translate_text)
+    return JsonResponse({'result': translate_text})
+    
+
+    

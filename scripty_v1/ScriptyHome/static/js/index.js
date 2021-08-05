@@ -11,13 +11,53 @@ ClassicEditor
         } );
 
 $().ready( function () {
-    $('#textInputSubmit').click( function (e) {
+
+    $("#translateForm").submit(function(e) {
+        e.preventDefault();
+        let fromLanguage = $("#fromLanguage").val();
+        let toLanguage = $("#toLanguage").val();
+        //console.log(toLanguage);
+
+        let text = editor.getData();
+        
+        $.ajax({
+            type: "post",
+            url: "/translateText",
+            data: {
+                text: text,
+                src:fromLanguage,
+                dest: toLanguage,
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            beforeSend: function() {
+                $('#loader').removeClass('hidden')
+            },
+            success: function (response) {
+               // console.log(response);
+               $('#loader').addClass('hidden')
+                editor.setData(response.result);
+            },
+            error: function (response) {
+                $('#loader').addClass('hidden')
+                console.log(response);
+            },
+            complete: function(){
+                $('#loader').addClass('hidden')
+            },
+        });
+        
+    });
+
+
+    $('#checkerForm').submit( function (e) {
+        e.preventDefault();
         let data = editor.getData();
         $.ajax({
-            type: "get",
+            type: "post",
             url: "grammarCheck",
             data: {
-                text: data
+                text: data,
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
             beforeSend: function() {
                 $('#loader').removeClass('hidden')
