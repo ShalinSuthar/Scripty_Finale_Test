@@ -39,13 +39,13 @@ def translateText(request):
 def getDict(request):
     word = request.POST['word']
     find = request.POST['find']
-   
+    
     def synonym():
-        return JsonResponse({'result': getsynonym(word) })
+        return JsonResponse({'result': scripty_dictionary.getsynonym(word) })
     def antonym():
-        return JsonResponse({'result': getantonym(word) })
+        return JsonResponse({'result':scripty_dictionary.getantonym(word) })
     def meaning():
-        return JsonResponse({'result': getmeaning(word) })
+        return JsonResponse({'result': scripty_dictionary.getmeaning(word) })
     
     switcher = {'synonym': synonym,'antonym': antonym,'meaning': meaning}
     func = switcher.get(find, "nothing")

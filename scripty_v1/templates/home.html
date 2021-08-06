@@ -140,7 +140,8 @@
                         disabled> -->
                 </form>
                 <div for="wordHelper" class="mt-4">
-                    <form action="" id="synform">
+                    <form action="" method="POST" id="synform">
+                        {% csrf_token %}
                         <label for="">Synonyms/Antonyms</label>
                         <div class="form-check">
                             <label class="form-check-label">

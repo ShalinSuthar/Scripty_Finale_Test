@@ -25,10 +25,11 @@ $().ready( function () {
         e.preventDefault();
         $.ajax({
             url: '/getDict',
-            type: 'POST',
+            type: 'post',
             data: {
                 'word': word,
-                'find':selectedRadio
+                'find':selectedRadio,
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
             
             success: function(data) {
@@ -115,7 +116,7 @@ $().ready( function () {
                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
             beforeSend: function() {
-               // $('#loader').removeClass('hidden')
+               $('#loader').removeClass('hidden')
             },
             success: function (response) {
                 console.log(response.result, typeof(response));
