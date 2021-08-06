@@ -24,4 +24,6 @@ urlpatterns = [
     path('login',views.login,name='login'),
     path('translateText',views.translateText,name='translateText'),
     path('readPdfImage',views.readPdfImage,name='readPdfImage'),
+    path('getDict',views.getDict,name='getDict'),
+    
 ]

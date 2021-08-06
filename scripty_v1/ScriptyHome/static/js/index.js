@@ -1,16 +1,45 @@
 //created for separations purposes..
 let editor;
 
-ClassicEditor
-        .create( document.querySelector( '#textInput' ) )
-        .then( function ( classicEditor ) {
-            editor = classicEditor;
-        })
-        .catch( error => {
-            console.error( error );
-        } );
+// ClassicEditor
+//         .create( document.querySelector( '#textInput' ) )
+//         .then( function ( classicEditor ) {
+//             editor = classicEditor;
+//         })
+//         .catch( error => {
+//             console.error( error );
+//         } );
 
 $().ready( function () {
+
+    document.ondblclick = function () {
+        var sel = (document.selection && document.selection.createRange().text) ||
+                  (window.getSelection && window.getSelection().toString());
+        document.getElementById("wordInput").value= sel;
+     };
+
+     $("#synbtn").submit(function(e) {
+        let word =  document.getElementById("wordInput").value;
+        var form_elements = document.getElementById('synform').elements;
+        var selectedRadio = form_elements['optionsRadios'].value;
+        e.preventDefault();
+        $.ajax({
+            url: '/getDict',
+            type: 'POST',
+            data: {
+                'word': word,
+                'find':selectedRadio
+            },
+            
+            success: function(data) {
+                console.log(data);
+                document.getElementById("textInput").innerHTML = data;
+            },
+            error: function(data) {
+                console.log('error');
+            }
+        });
+     });
 
     $("#translateForm").submit(function(e) {
         e.preventDefault();
@@ -63,7 +92,7 @@ $().ready( function () {
             contentType: false,
             success: function(data) {
                 console.log(data);
-                editor.setData(data.result);
+                document.getElementById("textInput").innerHTML = data;
             },
             error: function(data) {
                 console.log('error');
@@ -76,7 +105,8 @@ $().ready( function () {
         e.preventDefault();
         //close modal ocrFileInput
         
-        let data = editor.getData();
+        // let data = editor.getData();
+        let data = document.getElementById("textInput").innerHTML;
         $.ajax({
             type: "post",
             url: "grammarCheck",
@@ -90,7 +120,8 @@ $().ready( function () {
             success: function (response) {
                 console.log(response.result, typeof(response));
                 console.log(new DOMParser().parseFromString(response.result.result_colored, "text/html"));
-                editor.setData(response.result.result_colored);
+                // editor.setData(response.result.result_colored);
+                document.getElementById("textInput").innerHTML = response.result.result_colored;
             },
             error: function (response) {
                 console.log(response);
