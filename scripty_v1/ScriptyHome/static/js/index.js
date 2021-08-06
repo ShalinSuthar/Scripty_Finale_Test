@@ -48,9 +48,34 @@ $().ready( function () {
         
     });
 
+    $("#readPdfImage").submit(function(e) {
+        e.preventDefault();
+
+        //getting the file..
+        var form = new FormData($(this).get(0));
+
+        $.ajax({
+            url: 'readPdfImage',
+            type: 'POST',
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                console.log(data);
+                editor.setData(data.result);
+            },
+            error: function(data) {
+                console.log('error');
+            }
+        });
+    });
 
     $('#checkerForm').submit( function (e) {
+        $("#ocrFileInput").modal('hide');
         e.preventDefault();
+        //close modal ocrFileInput
+        
         let data = editor.getData();
         $.ajax({
             type: "post",
@@ -60,7 +85,7 @@ $().ready( function () {
                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
             beforeSend: function() {
-                $('#loader').removeClass('hidden')
+               // $('#loader').removeClass('hidden')
             },
             success: function (response) {
                 console.log(response.result, typeof(response));
@@ -71,7 +96,7 @@ $().ready( function () {
                 console.log(response);
             },
             complete: function(){
-                $('#loader').addClass('hidden')
+                //$('#loader').addClass('hidden')
             },
         });
     })

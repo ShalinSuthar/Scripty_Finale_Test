@@ -105,7 +105,8 @@
         <div class="col-lg-6 offset-lg-1 col-sm-12">
             <form id="checkerForm" method="POST">
             {% csrf_token %}
-                <textarea name="textInput" id="textInput" cols="60" rows="14" oninput="countWords()" class="ckeditor ta" onchange="countWords()"></textarea>
+                <textarea name="textInput" id="textInput" cols="60" rows="14" oninput="countWords()" class="ckeditor ta" onchange="countWords()">
+                </textarea>
                 <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit"/>
                 <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
                     id="wordCountResult">0</label>
@@ -187,7 +188,7 @@
     <!-- fileInput of txt,word end -->
     <!-- fileInput of pdf, jpg start -->
     <div class="modal fade" id="ocrFileInput" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-sm bg-light">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Pdf or image file for text recognition</h5>
@@ -195,13 +196,14 @@
                     <span aria-hidden="true"></span>
                     </button>
                 </div>
-                <form action="">
+                <form enctype="multipart/form-data" id="readPdfImage" action="readPdfImage">
+                    {% csrf_token %}
                     <div class="modal-body">
-                        <input class="form-control" type="file" id="formFile" accept=".pdf, .jpg, .jpeg">
+                        <input class="form-control" type="file" id="formFile" name='formFile' accept=".pdf, .jpg, .jpeg">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="close" data-dismiss="modal">Close</button>
+                        <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
