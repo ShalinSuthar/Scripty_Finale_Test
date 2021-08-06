@@ -6,6 +6,8 @@ from django.shortcuts import render
 from django.views.decorators.cache import never_cache
 from ScriptyHome import grammer_checker
 from ScriptyHome import scripty_gtranslate
+from ScriptyHome import scripty_pdfread
+from ScriptyHome import scripty_ocr
 
 # Create your views here.
 
@@ -32,6 +34,36 @@ def translateText(request):
     translate_text = scripty_gtranslate.gtranslate(text,src=src,dest=dest)
     #print(translate_text)
     return JsonResponse({'result': translate_text})
+
+
+def readPdfImage(request):
+    fileToRead = request.FILES['formFile']
+
+    if fileToRead.name.endswith('.pdf'):
+        #Save the file to the server
+        file_path = 'ScriptyHome/static/UploadedFiles/' + fileToRead.name
+        with open(file_path, 'wb+') as destination:
+            for chunk in fileToRead.chunks():
+                destination.write(chunk)
+
+        #Read the file
+        pdf_text = scripty_pdfread.read_pdf(file_path)
+
+        return JsonResponse({'result': pdf_text})
+
+    elif fileToRead.name.endswith('.jpg') or fileToRead.name.endswith('.png'):
+        #Save the file to the server
+        file_path = 'ScriptyHome/static/UploadedFiles/' + fileToRead.name
+        with open(file_path, 'wb+') as destination:
+            for chunk in fileToRead.chunks():
+                destination.write(chunk)
+
+        #Read the file
+        image_text = scripty_ocr.ocr_space_file(filename=file_path)
+
+        return JsonResponse({'result': image_text})
+
     
+
 
     
