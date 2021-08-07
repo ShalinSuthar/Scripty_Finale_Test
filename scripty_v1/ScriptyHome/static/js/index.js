@@ -20,6 +20,7 @@ $().ready(function () {
 
   $("#synform").submit(function (e) {
     e.preventDefault();
+    $("#wordInput").empty();
     let word = document.getElementById("wordInput").value;
     var form_elements = document.getElementById("synform").elements;
     var selectedRadio = form_elements["optionsRadios"].value;
@@ -64,14 +65,28 @@ $().ready(function () {
             word: word,
           },
           success: function (data) {
+            $("#wordOutput").empty();
             console.log(data);
-            if (data.result.Noun.length == 0) {
-              $("#wordOutput").html("No meaning found");
-            } else {
+            if(data.result.Noun !== undefined){
               $("#wordOutput").html(`Noun - ${data.result.Noun[0]}`);
-              if (data.result.Verb !== undefined) {
+            }
+            if(data.result.Verb !== undefined){
                 $("#wordOutput").append(`\nVerb - ${data.result.Verb[0]}`);
-              }
+            }            
+            if(data.result.Adjective !== undefined){
+                $("#wordOutput").append(`\nAdjective - ${data.result.Adjective[0]}`);
+            }
+            if(data.result.Adverb !== undefined){
+                $("#wordOutput").append(`\nAdverb - ${data.result.Adverb[0]}`);
+            }
+            if(data.result.Pronoun !== undefined){
+                $("#wordOutput").append(`\nPronoun - ${data.result.Pronoun[0]}`);
+            }
+            if(data.result.Preposition !== undefined){
+                $("#wordOutput").append(`\nPreposition - ${data.result.Preposition[0]}`);
+            }
+            if(data.result.sub_members !== undefined && data.result.sub_members.length == 0){
+                $("#wordOutput").append(`\nNo Meaning found`);
             }
           },
           beforeSend: function () {
