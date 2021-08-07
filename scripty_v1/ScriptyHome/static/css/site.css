@@ -72,3 +72,9 @@ display: none;
     opacity: 1;
     transition: all 0.5s;
 }
+
+#wordOutput {
+   min-width: fit-content;
+   padding:1rem;
+   overflow: scroll;
+}

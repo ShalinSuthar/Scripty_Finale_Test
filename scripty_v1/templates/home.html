@@ -141,7 +141,7 @@
                         disabled> -->
                 </form>
                 <div for="wordHelper" class="mt-4">
-                    <form action="" method="POST" id="synform">
+                    <form method="POST" id="synform">
                         {% csrf_token %}
                         <label for="">Synonyms/Antonyms/Meaning</label>
                         <div class="form-check">
@@ -165,7 +165,8 @@
                         </div>
                         <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
                         <button id="synbtn" type="submit">Get Result</button><br><br>
-                        <input type="text" name="wordOutput" id="wordOutput" disabled placeholder="result">
+                        <textarea disabled class="form-control" type="text" name="wordOutput" id="wordOutput" placeholder="result">
+                            </textarea> 
                     </form>
                 </div>
             </div>
