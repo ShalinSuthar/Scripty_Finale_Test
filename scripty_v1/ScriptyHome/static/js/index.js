@@ -1,54 +1,144 @@
 //created for separations purposes..
 let editor;
 
-ClassicEditor
-        .create( document.querySelector( '#textInput' ) )
-        .then( function ( classicEditor ) {
-            editor = classicEditor;
-        })
-        .catch( error => {
-            console.error( error );
-        } );
+// ClassicEditor
+//         .create( document.querySelector( '#textInput' ) )
+//         .then( function ( classicEditor ) {
+//             editor = classicEditor;
+//         })
+//         .catch( error => {
+//             console.error( error );
+//         } );
 
-$().ready( function () {
+$().ready(function () {
 
-    $("#translateForm").submit(function(e) {
+    document.ondblclick = function () {
+        var sel = (document.selection && document.selection.createRange().text) ||
+            (window.getSelection && window.getSelection().toString());
+        document.getElementById("wordInput").value = sel;
+    };
+
+    $("#synbtn").submit(function (e) {
+        let word = document.getElementById("wordInput").value;
+        var form_elements = document.getElementById('synform').elements;
+        var selectedRadio = form_elements['optionsRadios'].value;
+        e.preventDefault();
+        switch (selectedRadio) {
+            case ("synonym"):
+                console.log(("synonym"))
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/gosynonym",
+                        data: {
+                            word: word
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            document.getElementById("wordOutput").innerHTML = data;
+                        }
+                    });
+                break;
+            case ("meaning"):
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/gomeaning",
+                        data: {
+                            word: word
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            document.getElementById("wordOutput").innerHTML = data;
+                        }
+                    });
+                break;
+            case ("antonym"):
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/goantonym",
+                        data: {
+                            word: word
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            document.getElementById("wordOutput").innerHTML = data;
+                        }
+                    });
+                break;
+            default:
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/gosynonym",
+                        data: {
+                            word: word
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            document.getElementById("wordOutput").innerHTML = data;
+                        }
+                    });
+                break;
+        }
+        // $.ajax({
+        //     url: '/getDict',
+        //     type: 'post',
+        //     data: {
+        //         'word': word,
+        //         'find':selectedRadio,
+        //         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        //     },
+
+        //     success: function(data) {
+        //         console.log(data);
+        //         document.getElementById("textInput").innerHTML = data;
+        //     },
+        //     error: function(data) {
+        //         console.log('error');
+        //     }
+        // });
+    });
+
+    $("#translateForm").submit(function (e) {
         e.preventDefault();
         let fromLanguage = $("#fromLanguage").val();
         let toLanguage = $("#toLanguage").val();
         //console.log(toLanguage);
 
-        let text = editor.getData();
-        
+        let text = document.getElementById("textInput").innerHTML;
+
         $.ajax({
             type: "post",
             url: "/translateText",
             data: {
                 text: text,
-                src:fromLanguage,
+                src: fromLanguage,
                 dest: toLanguage,
                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#loader').removeClass('hidden')
             },
             success: function (response) {
-               // console.log(response);
-               $('#loader').addClass('hidden')
-                editor.setData(response.result);
+                // console.log(response);
+                $('#loader').addClass('hidden')
+                document.getElementById("textInput").innerHTML  = response.result;
+                // editor.setData(response.result);
             },
             error: function (response) {
                 $('#loader').addClass('hidden')
                 console.log(response);
             },
-            complete: function(){
+            complete: function () {
                 $('#loader').addClass('hidden')
             },
         });
-        
+
     });
 
-    $("#readPdfImage").submit(function(e) {
+    $("#readPdfImage").submit(function (e) {
         e.preventDefault();
 
         //getting the file..
@@ -61,22 +151,23 @@ $().ready( function () {
             cache: false,
             processData: false,
             contentType: false,
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
-                editor.setData(data.result);
+                document.getElementById("textInput").innerHTML = data;
             },
-            error: function(data) {
+            error: function (data) {
                 console.log('error');
             }
         });
     });
 
-    $('#checkerForm').submit( function (e) {
+    $('#checkerForm').submit(function (e) {
         $("#ocrFileInput").modal('hide');
         e.preventDefault();
         //close modal ocrFileInput
-        
-        let data = editor.getData();
+
+        // let data = editor.getData();
+        let data = document.getElementById("textInput").innerHTML;
         $.ajax({
             type: "post",
             url: "grammarCheck",
@@ -84,19 +175,20 @@ $().ready( function () {
                 text: data,
                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
-            beforeSend: function() {
-               // $('#loader').removeClass('hidden')
+            beforeSend: function () {
+                $('#loader').removeClass('hidden')
             },
             success: function (response) {
-                console.log(response.result, typeof(response));
+                console.log(response.result, typeof (response));
                 console.log(new DOMParser().parseFromString(response.result.result_colored, "text/html"));
-                editor.setData(response.result.result_colored);
+                // editor.setData(response.result.result_colored);
+                document.getElementById("textInput").innerHTML = response.result.result_colored;
             },
             error: function (response) {
                 console.log(response);
             },
-            complete: function(){
-                //$('#loader').addClass('hidden')
+            complete: function () {
+                $('#loader').addClass('hidden')
             },
         });
     })

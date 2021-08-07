@@ -8,6 +8,7 @@ from ScriptyHome import grammer_checker
 from ScriptyHome import scripty_gtranslate
 from ScriptyHome import scripty_pdfread
 from ScriptyHome import scripty_ocr
+from ScriptyHome import scripty_dictionary
 
 # Create your views here.
 
@@ -34,6 +35,19 @@ def translateText(request):
     translate_text = scripty_gtranslate.gtranslate(text,src=src,dest=dest)
     #print(translate_text)
     return JsonResponse({'result': translate_text})
+
+def gosynonym(request):
+    word = request.POST['word']
+    return JsonResponse({'result': scripty_dictionary.getsynonym(word) })
+   
+def goantonym(request):
+    word = request.POST['word']
+    return JsonResponse({'result':scripty_dictionary.getantonym(word) })
+
+def gomeaning(request):
+    word = request.POST['word']
+    return JsonResponse({'result': scripty_dictionary.getmeaning(word) })
+    
 
 
 def readPdfImage(request):

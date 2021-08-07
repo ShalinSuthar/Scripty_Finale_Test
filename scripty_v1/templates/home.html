@@ -16,7 +16,7 @@
     </script>
     <script defer src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/wordCount.js' %}"></script>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
@@ -104,10 +104,13 @@
         <!-- text input area start -->
         <div class="col-lg-6 offset-lg-1 col-sm-12">
             <form id="checkerForm" method="POST">
-            {% csrf_token %}
-                <textarea name="textInput" id="textInput" cols="60" rows="14" oninput="countWords()" class="ckeditor ta" onchange="countWords()">
-                </textarea>
-                <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit"/>
+                {% csrf_token %}
+                <div class="textborder">
+                    <div name="textInput" contenteditable="true" id="textInput" 
+                        oninput="countWords()" class="editor" onchange="countWords()">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
                 <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
                     id="wordCountResult">0</label>
             </form>
@@ -138,8 +141,9 @@
                         disabled> -->
                 </form>
                 <div for="wordHelper" class="mt-4">
-                    <form action="">
-                        <label for="">Synonyms/Antonyms</label>
+                    <form action="" method="POST" id="synform">
+                        {% csrf_token %}
+                        <label for="">Synonyms/Antonyms/Meaning</label>
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
@@ -149,12 +153,18 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2"
-                                    value="option2">
+                                    value="antonym">
                                 Antonyms
                             </label>
                         </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3"
+                                    value="meaning">
+                                Meaning </label>
+                        </div>
                         <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
-                        <button type="submit">Get Result</button><br><br>
+                        <button id="synbtn" type="submit">Get Result</button><br><br>
                         <input type="text" name="wordOutput" id="wordOutput" disabled placeholder="result">
                     </form>
                 </div>
@@ -168,18 +178,20 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Text files</h5>
+                    <h5 class="modal-title" style="color: white;">Text files</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <form action="">
                     <div class="modal-body">
-                        <input class="form-control" type="file" id="formFile" accept=".txt, .doc, .docx">
+                        <input class="form-control" style="width: 95%" type="file" id="formFile"
+                            accept=".txt, .doc, .docx">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="close" data-dismiss="modal">Close</button>
+                        <button type="submit" style="color: black;background-color: white;" class="btn btn-primary">Save
+                            changes</button>
+                        <button type="button" style="color: white" class="close" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
@@ -199,7 +211,8 @@
                 <form enctype="multipart/form-data" id="readPdfImage" action="readPdfImage">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <input class="form-control" type="file" id="formFile" name='formFile' accept=".pdf, .jpg, .jpeg">
+                        <input class="form-control" type="file" id="formFile" name='formFile'
+                            accept=".pdf, .jpg, .jpeg">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -209,14 +222,14 @@
             </div>
         </div>
     </div>
-    
+
     <!--
         Below is AJAX loader
     -->
     <div id="loader" class="lds-dual-ring hidden overlay"></div>
 
 </body>
-<script defer src = "{% static 'js/index.js' %}"></script>
+<script defer src="{% static 'js/index.js' %}"></script>
 <script defer src="{% static 'js/speechRecognition.js' %}"></script>
 
 </html>
