@@ -36,20 +36,18 @@ def translateText(request):
     #print(translate_text)
     return JsonResponse({'result': translate_text})
 
-def getDict(request):
+def gosynonym(request):
     word = request.POST['word']
-    find = request.POST['find']
+    return JsonResponse({'result': scripty_dictionary.getsynonym(word) })
+   
+def goantonym(request):
+    word = request.POST['word']
+    return JsonResponse({'result':scripty_dictionary.getantonym(word) })
+
+def gomeaning(request):
+    word = request.POST['word']
+    return JsonResponse({'result': scripty_dictionary.getmeaning(word) })
     
-    def synonym():
-        return JsonResponse({'result': scripty_dictionary.getsynonym(word) })
-    def antonym():
-        return JsonResponse({'result':scripty_dictionary.getantonym(word) })
-    def meaning():
-        return JsonResponse({'result': scripty_dictionary.getmeaning(word) })
-    
-    switcher = {'synonym': synonym,'antonym': antonym,'meaning': meaning}
-    func = switcher.get(find, "nothing")
-    return func()
 
 
 def readPdfImage(request):
