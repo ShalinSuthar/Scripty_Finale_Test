@@ -180,6 +180,14 @@ $().ready(function () {
     // });
   });
 
+  $("#textInput").on('focus', function() {
+    $("#get_back").css('color', 'black');
+    $("span:last-child").css('color', 'black');
+
+  });
+
+  $("#get_back").on('key')
+  
   $("#translateForm").submit(function (e) {
     e.preventDefault();
     let fromLanguage = $("#fromLanguage").val();
@@ -257,6 +265,7 @@ $().ready(function () {
         $("#loader").removeClass("hidden");
       },
       success: function (response) {
+
         console.log(response.result, typeof response);
         console.log(
           new DOMParser().parseFromString(
@@ -264,6 +273,7 @@ $().ready(function () {
             "text/html"
           )
         );
+
         // editor.setData(response.result.result_colored);
         document.getElementById("textInput").innerHTML =
           response.result.result_colored;

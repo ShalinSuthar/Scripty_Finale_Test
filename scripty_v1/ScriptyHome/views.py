@@ -15,7 +15,19 @@ from ScriptyHome import scripty_dictionary
 def home(request):
     return render(request, 'home.html')
 
+def autotemplate(query):
+    query = query [1:]
+    if("leave" in query):
+        template = open(r"ScriptyHome/static/writtenTemplates/leave.txt", "r").read()
+    if("resignation" in query):
+        template = open(r"ScriptyHome/static/writtenTemplates/resignation.txt", "r").read()
+    return JsonResponse({'result': {'result_colored' : template}} )
+
 def grammarCheck(request):
+    if(request.POST['text']):
+        if(request.POST['text'].split()[0]=="###"):
+            return autotemplate(request.POST['text'])
+            
     text = request.POST['text']
 
     parser = grammer_checker.GingerIt()

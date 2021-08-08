@@ -31,7 +31,7 @@ class GingerIt(object):
     def _change_char(original_text, from_position, to_position, change_with):
 
         return "{}{}{}".format(
-            original_text[:from_position],'<span style="color: green;">'+ change_with+'</span>', original_text[to_position + 1 :]
+            original_text[:from_position],'<span id="get_back" style="color: green;">'+ change_with+'</span>', original_text[to_position + 1 :]
         )
     
     @staticmethod
