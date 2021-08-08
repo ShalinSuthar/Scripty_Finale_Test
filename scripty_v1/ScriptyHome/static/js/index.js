@@ -231,7 +231,7 @@ $().ready(function () {
       contentType: false,
       success: function (data) {
         console.log(data);
-        document.getElementById("textInput").innerHTML = data;
+        document.getElementById("textInput").innerHTML = data.result;
       },
       error: function (data) {
         console.log("error");
