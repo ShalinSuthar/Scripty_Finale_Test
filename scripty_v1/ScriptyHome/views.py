@@ -36,6 +36,9 @@ def translateText(request):
     #print(translate_text)
     return JsonResponse({'result': translate_text})
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 def gosynonym(request):
     word = request.POST['word']
     return JsonResponse({'result': scripty_dictionary.getsynonym(word) })

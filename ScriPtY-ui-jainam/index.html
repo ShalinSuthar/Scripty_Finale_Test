@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Internal style import start-->
+    <link rel="stylesheet" href="./css/site.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.theme.min.css">
+    <!-- Internal style import end-->
+    <title>ScriPtY</title>
+</head>
+
+<body class="backgroundColor">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ScriPtY</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Test</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Sample Templates</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Template 1</a>
+                            <a class="dropdown-item" href="#">Template 2</a>
+                            <a class="dropdown-item" href="#">Template 3</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Template</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Email Templates</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Template 1</a>
+                            <a class="dropdown-item" href="#">Template 2</a>
+                            <a class="dropdown-item" href="#">Template 3</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Template</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Letter Templates</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Template 1</a>
+                            <a class="dropdown-item" href="#">Template 2</a>
+                            <a class="dropdown-item" href="#">Template 3</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Template</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Input type selector start -->
+    <div class="mt-lg-3">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1 text-center">
+                <label>Select Input type :</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1">Text</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                    data-toggle="modal" data-target="#textFileInput">
+                <label class="btn btn-outline-primary" for="btnradio2">File(.txt/.doc/.docx)</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                    data-toggle="modal" data-target="#ocrFileInput">
+                <label class="btn btn-outline-primary" for="btnradio3">Auto text recognition(.pdf/.jpg)</label>
+                <input type="button" class="btn-check" id="btnradio4">
+                <label class="btn btn-outline-primary" for="btnradio4" id="startListen">Voice Input</label>
+                <input type="button" class="btn-check" id="btnradio5">
+                <label class="btn btn-outline-primary" for="btnradio5" id="stopListen">Stop Listening</label>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Input type selector end -->
+    <!-- main window start -->
+    <div class="row">
+        <!-- text input area start -->
+        <div class="col-lg-6 col-md-12 col-sm-10 offset-lg-1 offset-sm-1">
+            <form>
+                <textarea name="textInput" id="textInput" cols="60" rows="14" oninput="countWords()"
+                    onchange="countWords()" placeholder="start writing..."></textarea>
+                <button type="submit" id="textInputSubmit">Check</button>
+                <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
+                    id="wordCountResult">0</label>
+            </form>
+        </div>
+        <!-- text input area end -->
+        <div class="col-lg-4" id="borderBox1">
+            <div class="row">
+                <div class="col-lg-10 col-md-5 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1">
+                    <label for="helperHeader">Helper</label>
+                    <div for="translation" id="borderBox">
+                        <form>
+                            <label for="">Translation</label><br>
+                            <label for="fromLanguageLabel">From Language:</label>
+                            <select name="fromLanguage" id="fromLanguage">
+                                <option value="en">English</option>
+                                <option value="hn">Hindi</option>
+                                <option value="gj">Gujarati</option>
+                            </select><br>
+                            <label for="toLanguageLabel">To Language:</label>
+                            <select name="toLanguage" id="toLanguage">
+                                <option value="en">English</option>
+                                <option value="hn">Hindi</option>
+                                <option value="gj">Gujarati</option>
+                            </select><br>
+                            <input type="text" name="fromLanguageInput" id="fromLanguageInput"
+                                placeholder="From Language Input">
+                            <button type="submit">Translate</button><br><br>
+                            <input type="text" name="toLanguageInput" id="toLanguageInput" placeholder="Translated text"
+                                disabled>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-5 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1">
+                    <div for="wordHelper" class="mt-4" id="borderBox">
+                        <form action="">
+                            <label for="">Synonyms/Antonyms</label>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios"
+                                        id="optionsRadios1" value="synonym" checked>
+                                    Synonyms </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios"
+                                        id="optionsRadios2" value="option2">
+                                    Antonyms
+                                </label>
+                            </div>
+                            <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
+                            <button type="submit">Get Result</button><br><br>
+                            <input type="text" name="wordOutput" id="wordOutput" disabled placeholder="result">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main window end -->
+    <!-- popup modal start -->
+    <!-- fileInput of txt,word start -->
+    <div class="modal fade" id="textFileInput" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Text files</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="file" id="formFileAsText" accept=".txt, .docx">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fileInput of txt,word end -->
+    <!-- fileInput of pdf, jpg start -->
+    <div class="modal fade" id="ocrFileInput" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pdf or image file for text recognition</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <input class="form-control" type="file" id="formFile" accept=".pdf, .jpg, .jpeg">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="close" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- fileInput of pdf, jpg end -->
+    <!-- popup modal end -->
+    <!-- External javascript import start-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- External javascript import end-->
+    <!-- Internal javascript import start-->
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/wordCount.js"></script>
+    <script src="./js/speechRecognition.js"></script>
+    <script src="./js/readFile.js"></script>
+    <!-- Internal javascript import end-->
+
+</body>
+
+</html>
