@@ -268,10 +268,7 @@ $().ready(function () {
             }
               
             fr.readAsText(this.files[0]);
-        })
-  //read docx file 
-  document.getElementById('formFileAsDocx')
- .       
+        });       
   //export pdf
   $("#exportBtn").on('click', function () {
     let text = document.getElementById("textInput").innerHTML;
