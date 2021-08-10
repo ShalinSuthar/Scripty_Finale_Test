@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <script type="text/javascript" src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js">
-    </script>
-    <script defer src="{% static 'js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/wordCount.js' %}"></script>
-
+    <script type="text/javascript" src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
+    <script defer src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/wordCount.js' %}"></script>
+    <script src="{% static 'js/speechRecognition.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    
     <!-- Internal style import end-->
     <title>ScriPtY</title>
 </head>
@@ -85,32 +85,35 @@
         </div>
     </nav>
     <!-- Input type selector start -->
-    <div class="mt-lg-3 row">
-        <div class="col-lg-8 offset-lg-2">
-            <label>Select Input type :</label>
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Text</label>
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" data-toggle="modal"
-                data-target="#textFileInput">
-            <label class="btn btn-outline-primary" for="btnradio2">File(.txt/.doc/.docx)</label>
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" data-toggle="modal"
-                data-target="#ocrFileInput">
-            <label class="btn btn-outline-primary" for="btnradio3">Auto text recognition(.pdf/.jpg)</label>
-            <input type="button" class="btn-check" id="btnradio4">
-            <label class="btn btn-outline-primary" for="btnradio4" id="startListen">Voice Input</label>
-            <input type="button" class="btn-check" id="btnradio5">
-            <label class="btn btn-outline-primary" for="btnradio5" id="stopListen">Stop Listening</label>
+    <div class="mt-lg-3">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1 text-center">
+                <label>Select Input type :</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1">Text</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                    data-toggle="modal" data-target="#textFileInput">
+                <label class="btn btn-outline-primary" for="btnradio2">File(.txt/.doc/.docx)</label>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                    data-toggle="modal" data-target="#ocrFileInput">
+                <label class="btn btn-outline-primary" for="btnradio3">Auto text recognition(.pdf/.jpg)</label>
+                <input type="button" class="btn-check" id="btnradio4">
+                <label class="btn btn-outline-primary" for="btnradio4" id="startListen">Voice Input</label>
+                <input type="button" class="btn-check" id="btnradio5">
+                <label class="btn btn-outline-primary" for="btnradio5" id="stopListen">Stop Listening</label>
+            </div>
         </div>
+    </div>
     </div>
     <!-- Input type selector end -->
     <!-- main window start -->
     <div class="row">
         <!-- text input area start -->
-        <div class="col-lg-6 offset-lg-1 col-sm-12">
+        <div class="col-lg-6 col-md-12 col-sm-10 offset-lg-1 offset-sm-1" style="margin:5%;flex-shrink: unset;">
             <form id="checkerForm" method="POST">
                 {% csrf_token %}
                 <div class="textborder">
-                    <div name="textInput" contenteditable="true" id="textInput" 
+                    <div name="textInput" contenteditable="true" id="textInput"
                         oninput="countWords()" class="editor" onchange="countWords()">
                     </div>
                 </div>
@@ -120,58 +123,65 @@
             </form>
         </div>
         <!-- text input area end -->
-        <div class="col-lg-4 mx-lg-5 col-sm-12">
-            <label for="helperHeader">Helper</label>
-            <div for="translation">
-                <form method="POST" id="translateForm">
-                    {% csrf_token %}
-                    <label for="">Translation</label><br>
-                    <label for="fromLanguageLabel">From Language:</label>
-                    <select name="fromLanguage" id="fromLanguage">
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                        <option value="gu">Gujarati</option>
-                    </select><br>
-                    <label for="toLanguageLabel">To Language:</label>
-                    <select name="toLanguage" id="toLanguage">
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                        <option value="gu">Gujarati</option>
-                    </select><br>
-                    <!-- <input type="text" name="fromLanguageInput" id="fromLanguageInput"
-                        placeholder="From Language Input"> -->
-                    <button class="btn btn-info" type="submit">Translate</button><br><br>
-                    <!-- <input type="text" name="toLanguageInput" id="toLanguageInput" placeholder="Translated text"
-                        disabled> -->
-                </form>
-                <div for="wordHelper" class="mt-4">
-                    <form method="POST" id="synform">
-                        {% csrf_token %}
-                        <label for="">Synonyms/Antonyms/Meaning</label>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1"
-                                    value="synonym" checked>
-                                Synonyms </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2"
-                                    value="antonym">
-                                Antonyms
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3"
-                                    value="meaning">
-                                Meaning </label>
-                        </div>
-                        <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
-                        <button id="synbtn" type="submit">Get Result</button><br><br>
-                        <textarea disabled class="form-control" type="text" name="wordOutput" id="wordOutput" placeholder="result">
-                            </textarea> 
-                    </form>
+        <div class="col-lg-4" id="borderBox1">
+            <div class="row">
+                <div class="col-lg-10 col-md-5 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1">
+                    <label for="helperHeader">Helper</label>
+                    <div for="translation" id="borderBox">
+                        <form method="POST" id="translateForm">
+                            {% csrf_token %}
+                            <label for="">Translation</label><br>
+                            <label for="fromLanguageLabel">From Language:</label>
+                            <select name="fromLanguage" id="fromLanguage">
+                                <option value="en">English</option>
+                                <option value="hi">Hindi</option>
+                                <option value="gu">Gujarati</option>
+                            </select><br>
+                            <label for="toLanguageLabel">To Language:</label>
+                            <select name="toLanguage" id="toLanguage">
+                                <option value="en">English</option>
+                                <option value="hi">Hindi</option>
+                                <option value="gu">Gujarati</option>
+                            </select><br>
+                            <!-- <input type="text" name="fromLanguageInput" id="fromLanguageInput"
+                                placeholder="From Language Input"> -->
+                            <button class="btn btn-info" type="submit">Translate</button><br><br>
+                            <!-- <input type="text" name="toLanguageInput" id="toLanguageInput" placeholder="Translated text"
+                                disabled> -->
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-5 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1">
+                    <div for="wordHelper" class="mt-4" id="borderBox">
+                        <form method="POST" id="synform">
+                            {% csrf_token %}
+                            <label for="">Synonyms/Antonyms/Meaning</label>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios"
+                                        id="optionsRadios1" value="synonym" checked>
+                                    Synonyms </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios"
+                                        id="optionsRadios2" value="antonym">
+                                    Antonyms
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios"
+                                        id="optionsRadios3" value="meaning">
+                                    Meaning </label>
+                            </div>
+                            <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
+                            <button id="synbtn" type="submit">Get Result</button><br><br>
+                            <textarea disabled class="form-control" type="text" name="wordOutput" id="wordOutput"
+                                placeholder="result">
+                            </textarea>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,24 +198,20 @@
                     <span aria-hidden="true"></span>
                     </button>
                 </div>
-                <form action="">
-                    <div class="modal-body">
-                        <input class="form-control" style="width: 95%" type="file" id="formFile"
-                            accept=".txt, .doc, .docx">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" style="color: black;background-color: white;" class="btn btn-primary">Save
-                            changes</button>
-                        <button type="button" style="color: white" class="close" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                <div class="modal-body">
+                    <input class="form-control" type="file" id="formFileAsText" accept=".txt, .docx">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
     <!-- fileInput of txt,word end -->
     <!-- fileInput of pdf, jpg start -->
     <div class="modal fade" id="ocrFileInput" role="dialog">
-        <div class="modal-dialog modal-sm bg-light">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Pdf or image file for text recognition</h5>
@@ -217,8 +223,7 @@
                     {% csrf_token %}
                     <div class="modal-body">
                         <input class="form-control" type="file" id="formFile" name='formFile'
-                            accept=".pdf, .jpg, .jpeg, .png">
-                    </div>
+                            accept=".pdf, .jpg, .jpeg, .png"> </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save changes</button>
                         <button type="button" class="close btn btn-danger" data-dismiss="modal">Close</button>
@@ -227,14 +232,13 @@
             </div>
         </div>
     </div>
-
     <!--
         Below is AJAX loader
     -->
     <div id="loader" class="lds-dual-ring hidden overlay"></div>
+    <!-- fileInput of pdf, jpg end -->
+    <!-- popup modal end -->
 
 </body>
-<script defer src="{% static 'js/index.js' %}"></script>
-<script defer src="{% static 'js/speechRecognition.js' %}"></script>
 
 </html>
