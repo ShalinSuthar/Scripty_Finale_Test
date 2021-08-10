@@ -54,8 +54,8 @@ if ("webkitSpeechRecognition" in window) {
                 interim_transcript += event.results[i][0].transcript;
             }
         }
-        editor.setData(final_transcript);
-        //document.getElementById("textInput").innerText = final_transcript;
+        //editor.setData(final_transcript);
+        document.getElementById("textInput").innerText = final_transcript;
     }
 
     document.getElementById("btnradio4").onclick = () => {
@@ -63,8 +63,8 @@ if ("webkitSpeechRecognition" in window) {
     };
     document.querySelector("#btnradio5").onclick = () => {
         speechRecognition.stop();
-        editor.setData(final_transcript);
-        //document.getElementById("textInput").innerText = final_transcript;
+        //editor.setData(final_transcript);
+        document.getElementById("textInput").innerText = final_transcript;
     };
 } else {
     console.log("Speech Recognition Not Available")
