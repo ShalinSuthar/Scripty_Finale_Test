@@ -16,9 +16,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script defer src="{% static 'js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/wordCount.js' %}"></script>
-    <script src="{% static 'js/speechRecognition.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
+    <script  defer src="{% static 'js/wordCount.js' %}"></script>
+    <script defer src="{% static 'js/speechRecognition.js' %}"></script>
+    <script defer src="{% static 'js/index.js' %}"></script>
     
     <!-- Internal style import end-->
     <title>ScriPtY</title>
@@ -72,11 +72,15 @@
                             <a class="dropdown-item" href="#">Template</a>
                         </div>
                     </li>
+                    <li style="position:absolute;right:1rem;" class="nav-item mx-auto">
+                        <a class="nav-link" href="dashboard">Dashboard</a>
+                    </li>
                 </ul>
-                <form class="d-flex">
+                <!-- <form class="d-flex">
                     <input class="form-control me-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form> -->
+                
             </div>
         </div>
     </nav>
@@ -114,6 +118,7 @@
                     </div>
                 </div>
                 <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
+                <input type="button" class="btn btn-lg btn-light m-2" value="Export" id="exportBtn" />
                 <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
                     id="wordCountResult">0</label>
             </form>
@@ -194,13 +199,16 @@
                     <span aria-hidden="true"></span>
                     </button>
                 </div>
+                <!-- <form id="txtFileReader" metho> -->
                 <div class="modal-body">
+
                     <input class="form-control" type="file" id="formFileAsText" accept=".txt, .docx">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                    <button id="fileReaderInput" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button type="close" class="close" data-dismiss="modal">Close</button>
                 </div>
+            <!-- </form> -->
             </div>
         </div>
     </div>

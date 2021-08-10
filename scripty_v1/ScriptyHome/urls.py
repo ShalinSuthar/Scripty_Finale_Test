@@ -27,4 +27,5 @@ urlpatterns = [
     path('gosynonym',views.gosynonym,name='gosynonym'),
     path('goantonym',views.goantonym,name='goantonym'),
     path('gomeaning',views.gomeaning,name='gomeaning'),    
+    path('dashboard',views.dashboard,name='dashboard'),
 ]
