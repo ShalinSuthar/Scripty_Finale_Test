@@ -8,6 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Internal style import start-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.8/mammoth.browser.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/site.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.theme.min.css' %}">
@@ -18,8 +21,9 @@
     <script defer src="{% static 'js/bootstrap.js' %}"></script>
     <script  defer src="{% static 'js/wordCount.js' %}"></script>
     <script defer src="{% static 'js/speechRecognition.js' %}"></script>
-    <script defer src="{% static 'js/index.js' %}"></script>
     
+    
+
     <!-- Internal style import end-->
     <title>ScriPtY</title>
 </head>
@@ -118,7 +122,15 @@
                     </div>
                 </div>
                 <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
-                <input type="button" class="btn btn-lg btn-light m-2" value="Export" id="exportBtn" />
+                <div class="dropdown">
+                    <button class="btn btn-lg btn-light m-2" type="button" id="exportBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Export
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#" id="txtExportBtn">Text File</a>
+                      <a class="dropdown-item" href="#" id="pdfExportBtn">PDF File</a>
+                    </div>
+                  </div>
                 <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
                     id="wordCountResult">0</label>
             </form>
@@ -244,5 +256,5 @@
     <!-- popup modal end -->
 
 </body>
-
+<script defer src="{% static 'js/index.js' %}"></script>
 </html>

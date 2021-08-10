@@ -30,11 +30,6 @@
   border: 3px solid black;
   /* padding: 5px; */
 }
-.editor.editable{
-  /* width: 150vh;
-  height: 80vh; */
-  /* padding: 5px; */
-}
 
 .lds-dual-ring.hidden { 
 display: none;
