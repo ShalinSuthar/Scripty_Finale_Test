@@ -247,6 +247,52 @@ $().ready(function () {
     });
   });
 
+  // $("#exportBtn").on('click', function () {
+  //   let text = document.getElementById("textInput").innerHTML;
+    
+  //   //download text from the editor
+  //   var blob = new Blob([text], {
+  //     type: "text/plain;charset=utf-8"
+  //   });
+  //   saveAs(blob, "text.txt");
+  // });
+
+  //read input file from txtFileReader form
+  document.getElementById('formFileAsText')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+                document.getElementById('textInput')
+                        .textContent=fr.result;
+            }
+              
+            fr.readAsText(this.files[0]);
+        })
+  //read docx file 
+  document.getElementById('formFileAsDocx')
+ .       
+  //export pdf
+  $("#exportBtn").on('click', function () {
+    let text = document.getElementById("textInput").innerHTML;
+    let blob = new Blob([text], {
+      type: ""
+    });
+
+    
+    saveAs(blob, "text");
+  });
+
+  
+  function saveAs(blob, filename) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   $("#checkerForm").submit(function (e) {
     $("#ocrFileInput").modal("hide");
     e.preventDefault();
