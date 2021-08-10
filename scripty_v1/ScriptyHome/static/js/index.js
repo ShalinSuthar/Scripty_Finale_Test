@@ -195,7 +195,7 @@ $().ready(function () {
     //console.log(toLanguage);
 
     let text = document.getElementById("textInput").innerHTML;
-
+    console.log(text,"here");
     $.ajax({
       type: "post",
       url: "/translateText",
