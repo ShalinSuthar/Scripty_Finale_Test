@@ -42,4 +42,9 @@ def summarize(text):
     for sentence in sentences: 
         if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.2 * average)): 
             summary += " " + sentence 
-    return(summary)
+    # print(summary)
+    return summary
+# text ="Adding feelings to your essays can be much more powerful than just listing your achievements. It allows reviewers to connect with you and understand your personality and what drives you. In particular, be open to showing vulnerability. Nobody expects you to be perfect and acknowledging times in which you have felt nervous or scared shows maturity and self-awareness."
+
+
+# print(summarize(text))
