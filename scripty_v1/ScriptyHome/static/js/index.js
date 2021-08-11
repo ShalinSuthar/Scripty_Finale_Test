@@ -1,6 +1,7 @@
 //created for separations purposes..
 let editor;
 var doc = new jsPDF();
+var can1 = new handwriting.Canvas(document.getElementById("imageCanvas"));
 
 
 
@@ -496,12 +497,47 @@ let rest = null,
     });
   });
 
+  var imageLoader = document.getElementById('formFile');
+    imageLoader.addEventListener('change', handleImage, false);
+var canvas = document.getElementById('imageCanvas');
+var ctx = canvas.getContext('2d');
+
+
+
+
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);     
+
+    
+}
+
   $("#readPdfImage").submit(function (e) {
     e.preventDefault();
-
+    can1.setOptions(
+      {
+          language: "en",
+          numOfReturn: 3
+      }
+  );
+    can1.setCallBack(function(data, err) {
+      if(err) throw err;
+      else console.log(data);
+  });
+    can1.recognize();
     //getting the file..
-    var form = new FormData($(this).get(0));
+    /*var form = new FormData($(this).get(0));
 
+  
     $.ajax({
       url: "readPdfImage",
       type: "POST",
@@ -516,7 +552,7 @@ let rest = null,
       error: function (data) {
         console.log("error");
       },
-    });
+    });*/
   });
 
   // $("#exportBtn").on('click', function () {

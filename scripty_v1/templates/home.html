@@ -26,12 +26,14 @@
     <script defer src="{% static 'js/include.js' %}"></script>
 
 
-
+    <script src="{% static 'js/handwriting.canvas.js'%}"></script>
     <!-- Internal style import end-->
     <title>ScriPtY</title>
 </head>
 
 <body class="backgroundColor">
+    <!--OCR Canvas Goes here-->
+    <canvas style="display: none;" id="imageCanvas"></canvas>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">ScriPtY</a>
