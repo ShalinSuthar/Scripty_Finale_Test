@@ -25,6 +25,7 @@
   /* min-height: 50vh;
   max-height: 50vh; */
   overflow-y: scroll;
+  min-height: 50vh;
 }
 
 .div{
@@ -39,8 +40,9 @@
   /* width: 100vh;
   height: 80vh; */
   border: 3px solid black;
-  margin-top: -10%;
+  /* margin-top: -10%; */
   /* padding: 5px; */
+  min-height: 50vh;
 }
 
 .lds-dual-ring.hidden { 

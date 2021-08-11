@@ -639,6 +639,10 @@ let rest = null,
 
     // let data = editor.getData();
     let data = document.getElementById("textInput").innerHTML;
+    var text = data;
+    text = text.toString();
+    text = text.replace( /(<([^>]+)>)/ig, '')
+    localStorage.setItem('rawText', text);
     $.ajax({
       type: "post",
       url: "grammarCheck",
@@ -689,11 +693,22 @@ $(function () {
   $('#copyText').click(function (event) {
     var text = document.getElementById("textInput").innerHTML;
     text = text.toString();
-    text = text.replace( /(<([^>]+)>)/ig, '')
+    text = text.replace( /(<([^>]+)>)/ig, '');
     navigator.clipboard.writeText(text).then(function () {
       console.log('Async: Copying to clipboard was successful!');
     }, function (err) {
       console.error('Async: Could not copy text: ', err);
     });
   });
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.ctrlKey && event.key === 'z') {
+    var correctText = document.getElementById('textInput').innerHTML;
+    localStorage.setItem('correctText', correctText);
+    document.getElementById('textInput').innerHTML = localStorage.getItem('rawText');
+  }
+  if (event.ctrlKey && event.key === 'y') {
+    document.getElementById('textInput').innerHTML = localStorage.getItem('correctText');
+  }
 });
