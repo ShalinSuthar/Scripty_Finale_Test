@@ -19,11 +19,19 @@
   /* width: 150vh;
   height: 80vh; */
   padding:2%;
-  min-height: 50vh;
-  max-height: 50vh;
+  /* min-height: 50vh;
+  max-height: 50vh; */
   overflow-y: scroll;
 }
 
+.div{
+  width: auto;
+    display: inline-block;
+    visibility: hidden;
+    position: fixed;
+    overflow: auto;
+    font-size: 25px;
+}
 .textborder{
   /* width: 100vh;
   height: 80vh; */
