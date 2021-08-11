@@ -39,7 +39,7 @@ $().ready(function () {
           success: function (data) {
             console.log(data);
             if (data.result.length == 0) {
-              $("#wordOutput").html("No antonyms found");
+              $("#wordOutput").html("No synonyms found");
             } else {
               $("#wordOutput").html(data.result.slice(0, 3).toString(","));
             }
@@ -72,7 +72,7 @@ $().ready(function () {
               $("#wordOutput").html(`Noun - ${data.result.Noun[0]}`);
             }
             if (data.result.Verb !== undefined) {
-              $("#wordOutput").append(`\nVerb - ${data.result.Verb[0]}`);
+              $("#wordOutput").append(`Verb - ${data.result.Verb[0]}`);
             }
             if (data.result.Adjective !== undefined) {
               $("#wordOutput").append(
@@ -94,7 +94,7 @@ $().ready(function () {
               data.result.sub_members !== undefined &&
               data.result.sub_members.length == 0
             ) {
-              $("#wordOutput").append(`\nNo Meaning found`);
+              $("#wordOutput").append(`No Meaning found`);
             }
           },
           beforeSend: function () {
@@ -275,7 +275,7 @@ $().ready(function () {
 
       if (this.files[0].name.endsWith(".docx")) {
         parseWordDocxFile(this);
-      } else if(this.files[0].name.endsWith(".txt")) {
+      } else if (this.files[0].name.endsWith(".txt")) {
         var fr = new FileReader();
         fr.onload = function () {
           document.getElementById("textInput").textContent = fr.result;
@@ -323,6 +323,27 @@ $().ready(function () {
       type: "text/plain",
     });
     saveAs(blob, "text");
+  });
+
+  $("#fmr_txt_sum").on("submit", function (e) {
+    e.preventDefault();
+    let text = document.getElementById("textInput").innerHTML;
+    console.log((text));
+    $.ajax({
+      url: "textsummarize",
+      type: "POST",
+      data: {
+        text: text,
+        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+      },
+      success: function (data) {
+        console.log(data);
+        document.getElementById("textInput").innerHTML = data.result;
+      },
+      error: function (data) {
+        console.log("error");
+      },
+    });
   });
 
   // export pdf from #textInput
@@ -382,6 +403,32 @@ $().ready(function () {
       complete: function () {
         $("#loader").addClass("hidden");
       },
+    });
+  });
+});
+
+
+$(function () {
+  $('#sendmail').click(function (event) {
+    var email = '';
+    var subject = '';
+    var emailBody = document.getElementById("textInput").innerHTML;
+    var attach = 'path';
+    document.location = "mailto:" + email + "?subject=" + subject + "&body=" + emailBody + "?attach=" + attach;
+    console.log("mailto:" + email + "?subject=" + subject + "&body=" + emailBody + "?attach=" + attach);
+    console.log(emailBody);
+  });
+});
+
+$(function () {
+  $('#copyText').click(function (event) {
+    var text = document.getElementById("textInput").innerHTML;
+    text = text.toString();
+    text = text.replace( /(<([^>]+)>)/ig, '')
+    navigator.clipboard.writeText(text).then(function () {
+      console.log('Async: Copying to clipboard was successful!');
+    }, function (err) {
+      console.error('Async: Could not copy text: ', err);
     });
   });
 });

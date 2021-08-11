@@ -19,10 +19,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script defer src="{% static 'js/bootstrap.js' %}"></script>
-    <script  defer src="{% static 'js/wordCount.js' %}"></script>
+    <script defer src="{% static 'js/wordCount.js' %}"></script>
     <script defer src="{% static 'js/speechRecognition.js' %}"></script>
-    
-    
+
+
 
     <!-- Internal style import end-->
     <title>ScriPtY</title>
@@ -41,7 +41,7 @@
                     <li class="nav-item">
                     </li>
                     <li class="nav-item">
-                         <a class="nav-link" href="home">Home</a> 
+                        <a class="nav-link" href="home">Home</a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -84,27 +84,35 @@
                     <input class="form-control me-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form> -->
-                
+
             </div>
         </div>
     </nav>
     <!-- Input type selector start -->
     <div class="mt-lg-3">
         <div class="row">
-            <div class="col-lg-10 col-md-10 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1 text-center">
-                <label>Select Input type :</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Text</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-                    data-toggle="modal" data-target="#textFileInput">
-                <label class="btn btn-outline-primary" for="btnradio2">File(.txt/.doc/.docx)</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
-                    data-toggle="modal" data-target="#ocrFileInput">
-                <label class="btn btn-outline-primary" for="btnradio3">Auto text recognition(.pdf/.jpg)</label>
-                <input type="button" class="btn-check" id="btnradio4">
-                <label class="btn btn-outline-primary" for="btnradio4" id="startListen">Voice Input</label>
-                <input type="button" class="btn-check" id="btnradio5">
-                <label class="btn btn-outline-primary" for="btnradio5" id="stopListen">Stop Listening</label>
+            <div class="col-lg-12 col-md-10 col-sm-10 offset-lg-1 offset-md-1 offset-sm-1 text-center">
+
+                <form id="fmr_txt_sum" class="form-inline">
+                    {% csrf_token %}
+                    <label>Select Input type :</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnradio1">Text</label>
+
+                    <button id="txtsum" class="btn btn-outline-primary">Text Summarize
+                    </button>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                        data-toggle="modal" data-target="#textFileInput">
+                    <label class="btn btn-outline-primary" for="btnradio2">File(.txt/.doc/.docx)</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                        data-toggle="modal" data-target="#ocrFileInput">
+                    <label class="btn btn-outline-primary" for="btnradio3">Auto text recognition(.pdf/.jpg)</label>
+                    <input type="button" class="btn-check" id="btnradio4">
+                    <label class="btn btn-outline-primary" for="btnradio4" id="startListen">Voice Input</label>
+                    <input type="button" class="btn-check" id="btnradio5">
+                    <label class="btn btn-outline-primary" for="btnradio5" id="stopListen">Stop Listening</label>
+                </form>
             </div>
         </div>
     </div>
@@ -117,23 +125,29 @@
             <form id="checkerForm" method="POST">
                 {% csrf_token %}
                 <div class="textborder">
-                    <div name="textInput" contenteditable="true" id="textInput"
-                        oninput="countWords()" class="editor" onchange="countWords()">
+                    <div name="textInput" contenteditable="true" id="textInput" oninput="countWords()" class="editor"
+                        onchange="countWords()">
                     </div>
                 </div>
-                <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
-                <div class="dropdown">
-                    <button class="btn btn-lg btn-light m-2" type="button" id="exportBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Export
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#" id="txtExportBtn">Text File</a>
-                      <a class="dropdown-item" href="#" id="pdfExportBtn">PDF File</a>
+                <div class="form-inline">
+                    <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
+                    <div class="dropdown">
+                        <button class="btn btn-lg btn-light m-2" type="button" id="exportBtn" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="txtExportBtn">Text File</a>
+                            <a class="dropdown-item" href="#" id="pdfExportBtn">PDF File</a>
+                        </div>
                     </div>
-                  </div>
-                <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
-                    id="wordCountResult">0</label>
+                    <a class="btn btn-lg btn-primary m-2" id="sendmail">Send Mail</a>
+                    <a class="btn btn-lg btn-info m-2" id="copyText">Copy</a>
+                    <label for="wordCount">Word count: &nbsp;</label><label for="wordCountResult"
+                        id="wordCountResult">0</label>
+                </div>
             </form>
+
         </div>
         <!-- text input area end -->
         <div class="col-lg-4" id="borderBox1">
@@ -189,7 +203,8 @@
                                     Meaning </label>
                             </div>
                             <input type="text" name="wordInput" id="wordInput" placeholder="Enter Word">
-                            <button id="synbtn" class= "btn btn-lg btn-success m-2" type="submit">Get Result</button><br><br>
+                            <button id="synbtn" class="btn btn-lg btn-success m-2" type="submit">Get
+                                Result</button><br><br>
                             <textarea disabled class="form-control" type="text" name="wordOutput" id="wordOutput"
                                 placeholder="result" style="background-color: white;">
                             </textarea>
@@ -217,10 +232,11 @@
                     <input class="form-control" type="file" id="formFileAsText" accept=".txt, .docx">
                 </div>
                 <div class="modal-footer">
-                    <button id="fileReaderInput" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    <button id="fileReaderInput" type="button" class="btn btn-primary" data-dismiss="modal">Save
+                        changes</button>
                     <button type="close" class="close" data-dismiss="modal">Close</button>
                 </div>
-            <!-- </form> -->
+                <!-- </form> -->
             </div>
         </div>
     </div>
@@ -257,4 +273,5 @@
 
 </body>
 <script defer src="{% static 'js/index.js' %}"></script>
+
 </html>

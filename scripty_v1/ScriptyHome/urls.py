@@ -29,4 +29,5 @@ urlpatterns = [
     path('gomeaning',views.gomeaning,name='gomeaning'),    
     path('dashboard',views.dashboard,name='dashboard'),
     path('home',views.home,name='home'),
+    path('textsummarize',views.textsummarize,name='textsummarize'),
 ]

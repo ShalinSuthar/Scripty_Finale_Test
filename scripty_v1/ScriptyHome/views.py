@@ -9,6 +9,7 @@ from ScriptyHome import scripty_gtranslate
 from ScriptyHome import scripty_pdfread
 from ScriptyHome import scripty_ocr
 from ScriptyHome import scripty_dictionary
+from ScriptyHome import scripty_text_summarize
 
 # Create your views here.
 
@@ -21,6 +22,11 @@ def autotemplate(query):
         template = open(r"ScriptyHome/static/writtenTemplates/leave.txt", "r").read()
     if("resignation" in query):
         template = open(r"ScriptyHome/static/writtenTemplates/resignation.txt", "r").read()
+    if("job-application" in query or "application" in query):
+        template = open(r"ScriptyHome/static/writtenTemplates/job_application.txt", "r").read()
+    if("complaint" in query):
+        template = open(r"ScriptyHome/static/writtenTemplates/complaint.txt", "r").read()
+    
     return JsonResponse({'result': {'result_colored' : template}} )
 
 def grammarCheck(request):
@@ -92,7 +98,8 @@ def readPdfImage(request):
 
         return JsonResponse({'result': image_text})
 
-    
-
-
-    
+def textsummarize(request):
+    text=request.POST['text']
+    print("text: ",text)
+    print("op: ",scripty_text_summarize.summarize(text))
+    return JsonResponse({'result': scripty_text_summarize.summarize(text) })
