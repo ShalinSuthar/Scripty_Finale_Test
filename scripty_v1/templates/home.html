@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Internal style import start-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typo-js@1.2.0/typo.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.8/mammoth.browser.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/site.css' %}">
@@ -21,7 +22,9 @@
     <script defer src="{% static 'js/bootstrap.js' %}"></script>
     <script defer src="{% static 'js/wordCount.js' %}"></script>
     <script defer src="{% static 'js/speechRecognition.js' %}"></script>
-
+    
+    <script defer src="{% static 'js/include.js' %}"></script>
+    
 
 
     <!-- Internal style import end-->
@@ -121,25 +124,26 @@
     <!-- main window start -->
     <div class="row">
         <!-- text input area start -->
-        <div class="col-lg-6 col-md-12 col-sm-10 offset-lg-1 offset-sm-1" style="margin:5%;flex-shrink: unset;">
+        <div class="col-lg-6 col-md-12 col-sm-10 offset-lg-1 offset-sm-1" style="">
             <form id="checkerForm" method="POST">
                 {% csrf_token %}
                 <div class="textborder">
-                    <div name="textInput" contenteditable="true" id="textInput" oninput="countWords()" class="editor"
-                        onchange="countWords()">
+                    <div spellcheck="false" name="textInput" contenteditable="true" id="textInput"
+                        oninput="countWords()" class="editor" onchange="countWords()">
                     </div>
-                </div>
-                <div class="form-inline">
-                    <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
-                    <div class="dropdown">
-                        <button class="btn btn-lg btn-light m-2" type="button" id="exportBtn" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Export
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#" id="txtExportBtn">Text File</a>
-                            <a class="dropdown-item" href="#" id="pdfExportBtn">PDF File</a>
-                        </div>
+                    <!--Fake div which shows suggestion-->
+                    <div id="time"></div>
+                
+                    <div id='fake-div' class='div'></div>
+                    </div>
+                <input type="submit" class="btn btn-lg btn-success m-2" value="Check" id="textInputSubmit" />
+                <div class="dropdown">
+                    <button class="btn btn-lg btn-light m-2" type="button" id="exportBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Export
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#" id="txtExportBtn">Text File</a>
+                      <a class="dropdown-item" href="#" id="pdfExportBtn">PDF File</a>
                     </div>
                     <a class="btn btn-lg btn-primary m-2" id="sendmail">Send Mail</a>
                     <a class="btn btn-lg btn-info m-2" id="copyText">Copy</a>
