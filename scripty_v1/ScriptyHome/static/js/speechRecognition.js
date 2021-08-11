@@ -29,7 +29,7 @@ if ("webkitSpeechRecognition" in window) {
     let speechRecognition = new webkitSpeechRecognition();
     speechRecognition.continuous = true;
     speechRecognition.interimResults = true;
-    speechRecognition.lang = "en-US";
+    speechRecognition.lang = "gu";
 
     speechRecognition.onstart = () => {
         document.getElementById("startListen").style.visibility = 'hidden';

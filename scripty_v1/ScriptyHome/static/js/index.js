@@ -643,6 +643,7 @@ let rest = null,
       },
       error: function (response) {
         console.log(response);
+        $("#textInput").html("Not found.");
       },
       complete: function () {
         $("#loader").addClass("hidden");
