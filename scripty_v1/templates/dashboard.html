@@ -27,9 +27,69 @@
 </head>
 
 <body id="reportsPage">
+    
     <div class="" id="home">
         <div class="container">
-            <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #375a7f ; margin-bottom: 5%;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'home' %}">ScriPtY</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                            </li>
+                            <li class="nav-item">
+                                 <a class="nav-link" href="home">Home</a> 
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-haspopup="true" aria-expanded="false">Sample Templates</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Template 1</a>
+                                    <a class="dropdown-item" href="#">Template 2</a>
+                                    <a class="dropdown-item" href="#">Template 3</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Template</a>
+                                </div>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-haspopup="true" aria-expanded="false">Email Templates</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Template 1</a>
+                                    <a class="dropdown-item" href="#">Template 2</a>
+                                    <a class="dropdown-item" href="#">Template 3</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Template</a>
+                                </div>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-haspopup="true" aria-expanded="false">Letter Templates</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Template 1</a>
+                                    <a class="dropdown-item" href="#">Template 2</a>
+                                    <a class="dropdown-item" href="#">Template 3</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Template</a>
+                                </div>
+                            </li> -->
+                            <li style="position:absolute;right:1rem;bottom:21%" class="nav-item mx-auto">
+                                <a class="nav-link" href="dashboard">Dashboard</a>
+                            </li>
+                        </ul>
+                        <!-- <form class="d-flex">
+                            <input class="form-control me-sm-2" type="text" placeholder="Search">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form> -->
+                        
+                    </div>
+                </div>
+            </nav>
+            <!-- <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
                         <a class="navbar-brand" href="#">
@@ -44,9 +104,9 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#">Dashboard
+                                     <a class="nav-link active" href="#">Dashboard
                                         <span class="sr-only">(current)</span>
-                                    </a>
+                                    </a> 
                                 </li>
                                
                             </ul>
@@ -54,12 +114,12 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+            </div> -->
             <!-- row -->
             <div class="row">
                 <div class="col-6">
                     <div class="bg-white">
-                        <h2 class="tm-block-title">Visits and errors</h2>
+                        <h2 class="tm-block-title" style="text-align: center">Visits and errors</h2>
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
@@ -67,7 +127,7 @@
             
                 <div class="col-6">
                     <div class="bg-white">
-                        <h2 class="tm-block-title">Word wise max erros</h2>
+                        <h2 class="tm-block-title" style="text-align: center">Word wise max erros</h2>
                         <canvas id="barChart"></canvas>
                     </div>
                 </div>
@@ -75,7 +135,7 @@
                 <div class="row" style="max-height: 50vh!important;">
                     <div class="col-12">
                         <div class="bg-white">
-                            <h2 class="tm-block-title">Performance</h2>
+                            <h2 class="tm-block-title" style="text-align: center">Performance</h2>
                             <canvas id="pieChart" class="chartjs-render-monitor" style="max-height: 50vh!important;"></canvas>
                         </div>
                     </div>
